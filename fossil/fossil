@@ -1,0 +1,26 @@
+#!/bin/sh /etc/rc.common
+NAME=fossil
+PROG=/usr/bin/fossil
+START=168
+STOP=168
+PID_FILE=/var/run/${NAME}.pid
+ARGS="server"
+
+start() {
+        config_load ${NAME}
+        local port
+        local debug
+        local repo
+        config_get port 'server' port '8080'
+        config_get debug 'server' debug 0
+        config_get repo 'server' repository '/tmp'
+        append ARGS "--port ${port}"
+        [ "${debug}" -eq 1 ] && append ARGS "--th-trace"        
+        append ARGS "${repo}"
+        start-stop-daemon -S -x ${PROG} -p ${PID_FILE} -m -b -- ${ARGS}
+}
+
+stop() {
+        start-stop-daemon -K -n ${NAME} -p ${PID_FILE} -s TERM
+        rm -rf ${PID_FILE}
+}

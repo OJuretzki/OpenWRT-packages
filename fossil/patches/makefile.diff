@@ -1,0 +1,23 @@
+diff -Naur fossil-src-20120317175325.o//Makefile.classic fossil-src-20120317175325/Makefile.classic
+--- fossil-src-20120317175325.o//Makefile.classic	2012-03-17 18:30:58.000000000 +0000
++++ fossil-src-20120317175325/Makefile.classic	2012-04-08 08:00:44.389001423 +0000
+@@ -37,9 +37,6 @@
+ #TCC = gcc -g -O0 -Wall -fprofile-arcs -ftest-coverage
+ TCC = gcc -g -Os -Wall
+ 
+-# To add support for HTTPS
+-TCC += -DFOSSIL_ENABLE_SSL
+-
+ #### Extra arguments for linking the finished binary.  Fossil needs
+ #    to link against the Z-Lib compression library.  There are no
+ #    other dependencies.  We sometimes add the -static option here
+@@ -48,9 +45,6 @@
+ #
+ LIB = -lz $(LDFLAGS)
+ 
+-# If using HTTPS:
+-LIB += -lcrypto -lssl
+-
+ #### Tcl shell for use in running the fossil testsuite.  If you do not
+ #    care about testing the end result, this can be blank.
+ #
